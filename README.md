@@ -26,14 +26,11 @@ You can access the article via the link below:
 
 ## Screenshoot
 * nmap ipv6 scan result
-</br>
-![nmap ipv6](nmap_ipv6.png)
+<img src="nmap_ipv6.png">
 
 * nmap ipv4 scan result
-</br>
-![nmap ipv4](nmap_ipv4.png)
+<img src="nmap_ipv4.png">
 
 * ipv4bypass.py scan result
-</br>
-![ipv4bypass](https://github.com/k1z1lelma/ipv4bypass/blob/main/bypass.png)
+<img src="bypass.png">
 
