@@ -25,7 +25,15 @@ You can access the article via the link below:
 * `python3 ipv4bypass.py -h`
 
 ## Screenshoot
-nmap ipv6 scan result
+* nmap ipv6 scan result
 </br>
 ![nmap ipv6](nmap_ipv6.png)
+
+* nmap ipv4 scan result
+</br>
+![nmap ipv4](nmap_ipv4.png)
+
+* ipv4bypass.py scan result
+</br>
+![ipv4bypass](bypass.png)
 
