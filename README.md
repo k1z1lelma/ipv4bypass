@@ -35,5 +35,5 @@ You can access the article via the link below:
 
 * ipv4bypass.py scan result
 </br>
-![ipv4bypass](bypass.png)
+![ipv4bypass]([bypass.png](https://github.com/k1z1lelma/ipv4bypass/blob/main/bypass.png)https://github.com/k1z1lelma/ipv4bypass/blob/main/bypass.png)
 
