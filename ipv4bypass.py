@@ -21,142 +21,140 @@ interfaceNo=""
 bold=True
 
 def mac_to_ipv6_linklocal(mac):
-
-    edit_mac_format = mac.replace('b','')
-    edit_mac_format = mac.replace("'",'')
-    edit_mac_format = mac.replace(' ','')
+	edit_mac_format = mac.replace('b','')
+	edit_mac_format = mac.replace("'",'')
+	edit_mac_format = mac.replace(' ','')
 	edit_mac_format = test.replace('.','')
-    edit_mac_format = test.replace(':','')
-    edit_mac_format = test.replace('-','')
+	edit_mac_format = test.replace(':','')
+	edit_mac_format = test.replace('-','')
 
-    mac_value = int(edit_mac_format, 16)
-    high2 = mac_value >> 32 & 0xffff ^ 0x0200
-    high1 = mac_value >> 24 & 0xff
-    low1 = mac_value >> 16 & 0xff
-    low2 = mac_value & 0xffff
-    return 'fe80::{:04x}:{:02x}ff:fe{:02x}:{:04x}'.format(high2, high1, low1, low2)
+	mac_value = int(edit_mac_format, 16)
+	high2 = mac_value >> 32 & 0xffff ^ 0x0200
+	high1 = mac_value >> 24 & 0xff
+	low1 = mac_value >> 16 & 0xff
+	low2 = mac_value & 0xffff
+	return 'fe80::{:04x}:{:02x}ff:fe{:02x}:{:04x}'.format(high2, high1, low1, low2)
 
 def ip2bin(ip):
-    b = ""
-    inQuads = ip.split(".")
-    outQuads = 4
-    for q in inQuads:
-        if q != "":
-            b += dec2bin(int(q),8)
-            outQuads -= 1
-    while outQuads > 0:
-        b += "00000000"
-        outQuads -= 1
-    return b
+	b = ""
+	inQuads = ip.split(".")
+	outQuads = 4
+	for q in inQuads:
+		if q != "":
+			b += dec2bin(int(q),8)
+			outQuads -= 1
+	while outQuads > 0:
+		b += "00000000"
+		outQuads -= 1
+	return b
 
 def dec2bin(n,d=None):
-    s = ""
-    while n>0:
-        if n&1:
-            s = "1"+s
-        else:
-            s = "0"+s
-        n >>= 1
-    if d is not None:
-        while len(s)<d:
-            s = "0"+s
-    if s == "": s = "0"
-    return s
+	s = ""
+	while n>0:
+		if n&1:
+			s = "1"+s
+		else:
+			s = "0"+s
+		n >>= 1
+	if d is not None:
+		while len(s)<d:
+			s = "0"+s
+	if s == "": s = "0"
+	return s
 
 def bin2ip(b):
-    ip = ""
-    for i in range(0,len(b),8):
-        ip += str(int(b[i:i+8],2))+"."
-    return ip[:-1]
+	ip = ""
+	for i in range(0,len(b),8):
+		ip += str(int(b[i:i+8],2))+"."
+	return ip[:-1]
 
 def convertCIDR(c):
-    tmpResultList=[]
-    parts = c.split("/")
-    baseIP = ip2bin(parts[0])
-    subnet = int(parts[1])
-    if subnet == 32:
-        x=bin2ip(baseIP)
-        tmpResultList.append(x)
-    else:
-        ipPrefix = baseIP[:-(32-subnet)]
-        for i in range(2**(32-subnet)):
-            x=bin2ip(ipPrefix+dec2bin(i, (32-subnet)))
-            tmpResultList.append(x)
-    return tmpResultList
+	tmpResultList=[]
+	parts = c.split("/")
+	baseIP = ip2bin(parts[0])
+	subnet = int(parts[1])
+	if subnet == 32:
+		x=bin2ip(baseIP)
+		tmpResultList.append(x)
+	else:
+		ipPrefix = baseIP[:-(32-subnet)]
+		for i in range(2**(32-subnet)):
+			x=bin2ip(ipPrefix+dec2bin(i, (32-subnet)))
+			tmpResultList.append(x)
+	return tmpResultList
 
 def validateCIDRBlock(b):
     # appropriate format for CIDR block ($prefix/$subnet)
-    p = re.compile("^([0-9]{1,3}\.){0,3}[0-9]{1,3}(/[0-9]{1,2}){1}$")
-    if not p.match(b):
-
-        return False
+	p = re.compile("^([0-9]{1,3}\.){0,3}[0-9]{1,3}(/[0-9]{1,2}){1}$")
+	if not p.match(b):
+		return False
     # extract prefix and subnet size
-    prefix, subnet = b.split("/")
+	prefix, subnet = b.split("/")
     # each quad has an appropriate value (1-255)
-    quads = prefix.split(".")
-    for q in quads:
-        if (int(q) < 0) or (int(q) > 255):
-            print("Error: quad "+str(q)+" wrong size.")
-            return False
+	quads = prefix.split(".")
+	for q in quads:
+		if (int(q) < 0) or (int(q) > 255):
+			print("Error: quad "+str(q)+" wrong size.")
+			return False
     # subnet is an appropriate value (1-32)
-    if (int(subnet) < 1) or (int(subnet) > 32):
-        print("Error: subnet "+str(subnet)+" wrong size.")
-        return False
+	if (int(subnet) < 1) or (int(subnet) > 32):
+		print("Error: subnet "+str(subnet)+" wrong size.")
+		return False
     # passed all checks -> return True
-    return True
+	return True
 
 def diff(li1, li2):
-    return (list(set(li1) - set(li2)))
+	return (list(set(li1) - set(li2)))
 
 def setColor(message, bold=False, color=None, onColor=None):
 	retVal = colored(message, color=color, on_color=onColor, attrs=("bold",))
 	return retVal
 
 def get_hw_address(ifname):
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    info = fcntl.ioctl(s.fileno(), 0x8927,  struct.pack('256s', bytes(ifname[:15], 'utf-8')))
-    return ''.join(['%02x:' % b for b in info[18:24]])[:-1]
+	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	info = fcntl.ioctl(s.fileno(), 0x8927,  struct.pack('256s', bytes(ifname[:15], 'utf-8')))
+	return ''.join(['%02x:' % b for b in info[18:24]])[:-1]
 
 def get_ip_address(ifname):
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    return socket.inet_ntoa(fcntl.ioctl(
-        s.fileno(),
-        0x8915,  # SIOCGIFADDR
-        struct.pack('256s', bytes(ifname[:15], 'utf-8')))[20:24])
+	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	return socket.inet_ntoa(fcntl.ioctl(
+		s.fileno(),
+		0x8915,  # SIOCGIFADDR
+		struct.pack('256s', bytes(ifname[:15], 'utf-8')))[20:24])
 
 def get_ip_addressv6(ifname):
-    cmd = "ifconfig "+ifname
-    p1 = subprocess.Popen(["ifconfig",ifname],stdout=subprocess.PIPE)
+	cmd = "ifconfig "+ifname
+	p1 = subprocess.Popen(["ifconfig",ifname],stdout=subprocess.PIPE)
 
-    cmd = "grep -i inet6"
-    p2 = subprocess.Popen(["grep","-i","inet6"],stdin=p1.stdout,stdout=subprocess.PIPE)
+	cmd = "grep -i inet6"
+	p2 = subprocess.Popen(["grep","-i","inet6"],stdin=p1.stdout,stdout=subprocess.PIPE)
 
-    cmd = "awk '{print $2}'"
-    p3 = subprocess.Popen(["awk","{print $2}"],stdin=p2.stdout,stdout=subprocess.PIPE)
-    stdout,stderr = p3.communicate()
-    return (stdout).strip()
+	cmd = "awk '{print $2}'"
+	p3 = subprocess.Popen(["awk","{print $2}"],stdin=p2.stdout,stdout=subprocess.PIPE)
+	stdout,stderr = p3.communicate()
+	return (stdout).strip()
 
 def ipv62mac(ipv6):
-    ipv6=ipv6.split("%")[0]
+	ipv6=ipv6.split("%")[0]
     # remove subnet info if given
-    subnetIndex = ipv6.find("/")
-    if subnetIndex != -1:
-        ipv6 = ipv6[:subnetIndex]
+	subnetIndex = ipv6.find("/")
+	if subnetIndex != -1:
+		ipv6 = ipv6[:subnetIndex]
 
-    ipv6Parts = ipv6.split(":")
-    macParts = []
-    for ipv6Part in ipv6Parts[-4:]:
-        while len(ipv6Part) < 4:
-            ipv6Part = "0" + ipv6Part
-        macParts.append(ipv6Part[:2])
-        macParts.append(ipv6Part[-2:])
+	ipv6Parts = ipv6.split(":")
+	macParts = []
+	for ipv6Part in ipv6Parts[-4:]:
+		while len(ipv6Part) < 4:
+			ipv6Part = "0" + ipv6Part
+		macParts.append(ipv6Part[:2])
+		macParts.append(ipv6Part[-2:])
 
     # modify parts to match MAC value
-    macParts[0] = "%02x" % (int(macParts[0], 16) ^ 2)
-    del macParts[4]
-    del macParts[3]
+	macParts[0] = "%02x" % (int(macParts[0], 16) ^ 2)
+	del macParts[4]
+	del macParts[3]
 
-    return ":".join(macParts)
+	return ":".join(macParts)
 
 def runCommand(cmd):
 	cmdList=cmd.split(" ")
