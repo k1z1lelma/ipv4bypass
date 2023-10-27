@@ -24,9 +24,9 @@ def mac_to_ipv6_linklocal(mac):
 	edit_mac_format = mac.replace('b','')
 	edit_mac_format = mac.replace("'",'')
 	edit_mac_format = mac.replace(' ','')
-	edit_mac_format = test.replace('.','')
-	edit_mac_format = test.replace(':','')
-	edit_mac_format = test.replace('-','')
+	edit_mac_format = edit_mac_format.replace('.','')
+	edit_mac_format = edit_mac_format.replace(':','')
+	edit_mac_format = edit_mac_format.replace('-','')
 
 	mac_value = int(edit_mac_format, 16)
 	high2 = mac_value >> 32 & 0xffff ^ 0x0200
