@@ -1,6 +1,6 @@
 # ipv4bypass
 
-Trustwave'den John Anderson, IPv4 için geçerli olan ancak IPv6 için geçerli olmayan güvenlik kuralları nedeniyle saldırganların güvenlik korumalarını atlamak için IPv6'yı nasıl kullanabileceğini tartıştı.
+Trustwave's John Anderson discussed how attackers can use IPv6 to bypass security protections due to security rules that apply to IPv4 but not IPv6.
 
 You can access the article via the link below:
 
