@@ -4,7 +4,7 @@ Trustwave's John Anderson discussed how attackers can use IPv6 to bypass securit
 
 You can access the article via the link below:
 
-* `https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/using-ipv6-to-bypass-security/`
+* [https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/using-ipv6-to-bypass-security/](https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/using-ipv6-to-bypass-security/)
 
 ## Dependences (tested on Kali Linux)
 
