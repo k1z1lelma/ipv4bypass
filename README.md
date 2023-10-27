@@ -19,4 +19,10 @@ You can access the article via the link below:
 * `pip install termcolor`
 * `apt-get install arp-scan`
 
+## Usage
+
+* `python3 ipv4bypass.py -i eth0 -r 10.5.192.0/24`
+* `python3 ipv4bypass.py -h`
+
+## Screenshoot
 
