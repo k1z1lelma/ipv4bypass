@@ -10,7 +10,13 @@ You can access the article via the link below:
 
 * nmap
 * arp-scan
-* python-nmap
-* termcolor
+* python-nmap [nmap pypi](https://pypi.org/project/python-nmap/)
+* termcolor [termcolor pypi](https://pypi.org/project/termcolor/)
+
+## Installation of dependencies
+
+* `pip install python-nmap`
+* `pip install termcolor`
+* `apt-get install arp-scan`
 
 
